@@ -10,6 +10,7 @@ import (
 
 	"github.com/alexedwards/scs/v2"
 	"github.com/ashaller2017/bookings/internal/config"
+	"github.com/ashaller2017/bookings/internal/driver"
 	"github.com/ashaller2017/bookings/internal/handlers"
 	"github.com/ashaller2017/bookings/internal/helpers"
 	"github.com/ashaller2017/bookings/internal/models"
@@ -25,10 +26,11 @@ var errorLog *log.Logger
 
 func main() {
 
-	err := run()
+	db, err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.SQL.Close()
 
 	fmt.Println(fmt.Sprintf("Starting application on %s", portNumber))
 
@@ -41,7 +43,7 @@ func main() {
 	log.Fatal(err)
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 
 	gob.Register(models.Reservation{})
 
@@ -62,10 +64,17 @@ func run() error {
 
 	app.Session = session
 
+	//connect to database
+	log.Println("conecting to database....")
+	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=arishaller password=")
+	if err != nil {
+		log.Fatal("cannot connect to database! Dying...")
+	}
+
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("cannot create template cache")
-		return err
+		return nil, err
 	}
 	app.TemplateCache = tc
 	app.UseCache = false
@@ -76,5 +85,5 @@ func run() error {
 	render.NewTemplate(&app)
 	helpers.NewHelpers(&app)
 
-	return nil
+	return db, nil
 }
