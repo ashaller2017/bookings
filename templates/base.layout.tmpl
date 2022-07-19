@@ -71,6 +71,8 @@
 
 
     <div class="row my-footer">
+        
+        
         <div class="col">
             Left
         </div>
@@ -140,6 +142,15 @@
                 confirmButtonText: confirmButtonText
             })
         }
+        {{with .Error}}
+        notify("{{.}}","error")
+        {{end}}
+        {{with .Flash}}
+        notify("{{.}}","success")
+        {{end}}
+        {{with .Warning}}
+        notify("{{.}}","warning")
+        {{end}}
 
         function Prompt() {
             let toast = function (c) {
@@ -208,7 +219,7 @@
                     focusConfirm: false,
                     showCancelButton: true,
                     willOpen: () => {
-                        if (c.willOpen !== undefined ){
+                        if (c.willOpen !== undefined){
                             c.willOpen();
                         }
                     },
@@ -219,7 +230,7 @@
                         ]
                     },
                     didOpen: () => {
-                        if(c.didOpen !==undefined){
+                        if(c.didOpen !== undefined){
                             c.didOpen();
                         }
                     }

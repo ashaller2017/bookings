@@ -1,10 +1,11 @@
 .my-footer {
-    height: 5em;
-    background-color: #3d3d3d;
+    height: 100em;
+    margin: auto;
+    background-color: #bf3a3a;
     margin-top: 1.5em;
-    padding: 1em;
+    padding: 0;
     color: #FFFFFF;
-    font-size: 80%;
+    font-size: 100%;
   }
 
   .room-image {
@@ -19,5 +20,4 @@
   .datepicker{
     z-index: 100000;
     orientation: top;
-
   }
