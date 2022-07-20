@@ -71,8 +71,8 @@
 
 
     <div class="row my-footer">
-        
-        
+
+
         <div class="col">
             Left
         </div>
@@ -83,7 +83,7 @@
             Right
         </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
@@ -124,7 +124,7 @@
             })
         })();
 
-       
+
 
 
         function notify(msg, msgType) {
@@ -142,15 +142,15 @@
                 confirmButtonText: confirmButtonText
             })
         }
-        {{with .Error}}
-        notify("{{.}}","error")
-        {{end}}
-        {{with .Flash}}
-        notify("{{.}}","success")
-        {{end}}
-        {{with .Warning}}
-        notify("{{.}}","warning")
-        {{end}}
+        { { with .Error} }
+        notify("{{.}}", "error")
+        { { end } }
+        { { with .Flash} }
+        notify("{{.}}", "success")
+        { { end } }
+        { { with .Warning} }
+        notify("{{.}}", "warning")
+        { { end } }
 
         function Prompt() {
             let toast = function (c) {
@@ -219,7 +219,7 @@
                     focusConfirm: false,
                     showCancelButton: true,
                     willOpen: () => {
-                        if (c.willOpen !== undefined){
+                        if (c.willOpen !== undefined) {
                             c.willOpen();
                         }
                     },
@@ -230,21 +230,21 @@
                         ]
                     },
                     didOpen: () => {
-                        if(c.didOpen !== undefined){
+                        if (c.didOpen !== undefined) {
                             c.didOpen();
                         }
                     }
                 })
-                if (result){
-                    if(result.dismiss !==Swal.DismissReason.cancel){
-                        if(result.value!=""){
-                            if(c.callback !== undefined){
+                if (result) {
+                    if (result.dismiss !== Swal.DismissReason.cancel) {
+                        if (result.value != "") {
+                            if (c.callback !== undefined) {
                                 c.callback(result);
                             }
-                        }else{
+                        } else {
                             c.callback(false);
                         }
-                    }else{
+                    } else {
                         c.callback(false);
                     }
                 }
