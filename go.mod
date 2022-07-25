@@ -20,6 +20,8 @@ require (
 	github.com/jackc/pgx v3.6.2+incompatible // indirect
 	github.com/jackc/pgx/v4 v4.16.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/toorop/go-dkim v0.0.0-20201103131630-e1cd1a0a5208 // indirect
+	github.com/xhit/go-simple-mail/v2 v2.11.0 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
 	golang.org/x/text v0.3.7 // indirect
 )

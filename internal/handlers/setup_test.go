@@ -60,7 +60,6 @@ func TestMain(m *testing.M) {
 	render.NewRenderer(&app)
 
 	os.Exit(m.Run())
-
 }
 
 func getRoutes() http.Handler {
