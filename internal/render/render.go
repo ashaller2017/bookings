@@ -7,13 +7,16 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"github.com/ashaller2017/bookings/internal/config"
 	"github.com/ashaller2017/bookings/internal/models"
 	"github.com/justinas/nosurf"
 )
 
-var functions = template.FuncMap{}
+var functions = template.FuncMap{
+	"humanDate": HumanDate,
+}
 
 var app *config.AppConfig
 var pathToTemplates = "./templates"
@@ -23,12 +26,20 @@ func NewRenderer(a *config.AppConfig) {
 	app = a
 }
 
+//return time in yyyy-mm-dd for golang templates
+func HumanDate(t *time.Time) string {
+	return t.Format("2006-01-02")
+}
+
 // AddDefaultData adds data for all templates
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
 	td.Flash = app.Session.PopString(r.Context(), "flash")
 	td.Warning = app.Session.PopString(r.Context(), "warning")
 	td.Error = app.Session.PopString(r.Context(), "error")
 	td.CSRFToken = nosurf.Token(r)
+	if app.Session.Exists(r.Context(), "user_id") {
+		td.IsAuthenticated = 1
+	}
 	return td
 }
 

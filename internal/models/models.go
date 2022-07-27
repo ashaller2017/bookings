@@ -1,7 +1,6 @@
 package models
 
 import (
-	"html/template"
 	"time"
 )
 
@@ -43,6 +42,7 @@ type Reservation struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Room      Room
+	Processed int
 }
 
 //is the room restriction model
@@ -62,8 +62,9 @@ type RoomRestriction struct {
 
 //holds and email message
 type MailData struct {
-	To      string
-	From    string
-	Subject string
-	Content template.HTML
+	To       string
+	From     string
+	Subject  string
+	Content  string
+	Template string
 }
